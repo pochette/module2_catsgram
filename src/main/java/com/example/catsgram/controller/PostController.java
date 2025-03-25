@@ -1,0 +1,30 @@
+package com.example.catsgram.controller;
+import com.example.catsgram.model.Post;
+import com.example.catsgram.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class PostController {
+    private final PostService postService;
+
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
+    @GetMapping("/posts")
+    public List<Post> findAll() {
+        return postService.findAll();
+    }
+
+    @PostMapping(value = "/post")
+    public Post create(@RequestBody Post post) {
+        return postService.create(post);
+    }
+}
