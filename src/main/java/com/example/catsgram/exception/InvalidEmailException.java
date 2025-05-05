@@ -1,7 +1,7 @@
 package com.example.catsgram.exception;
 
 public class InvalidEmailException extends RuntimeException {
-    public InvalidEmailException(String s) {
-        super(s);
+    public InvalidEmailException(String message) {
+        super(message);
     }
 }
