@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class User {
     private String email;
-    private String nickName;
-    private LocalDate birthDate;
+    private String nickname;
+    private LocalDate birthdate;
 
     public String getEmail() {
         return email;
@@ -16,32 +16,32 @@ public class User {
         this.email = email;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-        return Objects.equals(email, user.email);
+        return email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(email);
+        return Objects.hash(email);
     }
 }
