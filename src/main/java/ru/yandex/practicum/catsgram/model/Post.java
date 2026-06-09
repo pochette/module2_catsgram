@@ -1,9 +1,11 @@
 package ru.yandex.practicum.catsgram.model;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 @Data
+@RequiredArgsConstructor
 public class Post {
 
     private Integer id;
@@ -11,11 +13,4 @@ public class Post {
     private final Instant creationDate = Instant.now(); // дата создания
     private String description; // описание
     private String photoUrl; // url-адрес фотографии
-
-    public Post(String author, String description, String photoUrl) {
-        this.author = author;
-        this.description = description;
-        this.photoUrl = photoUrl;
-    }
-
 }
