@@ -38,4 +38,5 @@ public class UserController {
     public User put(@Valid @RequestBody User user) {
         return userService.updateUser(user);
     }
+
 }

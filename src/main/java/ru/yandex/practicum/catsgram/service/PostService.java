@@ -2,6 +2,7 @@ package ru.yandex.practicum.catsgram.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.catsgram.exception.PostNotFoundException;
 import ru.yandex.practicum.catsgram.exception.UserNotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 public class PostService {
+    private static Integer globalId = 0;
     private final UserService userService;
     private final List<Post> posts = new ArrayList<>();
 
@@ -19,8 +21,11 @@ public class PostService {
         this.userService = userService;
     }
 
-    public List<Post> findAll() {
-        return posts;
+    public Post findPostById(Integer id) {
+        return posts.stream()
+                .filter(post -> post.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new PostNotFoundException(String.format("Пост %d не найден.", id)));
     }
 
     public Post create(Post post) {
@@ -30,8 +35,23 @@ public class PostService {
                     "Пользователь %s не найден",
                     post.getAuthor()));
         }
-
+        post.setId(getNextId());
         posts.add(post);
         return post;
+    }
+
+    private static Integer getNextId() {
+        return globalId++;
+    }
+
+    public List<Post> findAll(String sort, Integer from, Integer size) {
+        return posts.stream().sorted((p1, p2) -> {
+                    int comp = p1.getCreationDate().compareTo(p2.getCreationDate());
+                    if (sort.equals("desc")) {
+                        comp *= -1;
+                    }
+                    return comp;
+                })
+                .skip(from).limit(size).toList();
     }
 }
