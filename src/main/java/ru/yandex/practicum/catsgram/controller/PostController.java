@@ -47,12 +47,11 @@ public class PostController {
     }
 
     @GetMapping("/posts/search")
-    public List<Post> searchPosts(
+    public List<Post> searchPostsByAuthorAndDate(
             @RequestParam(value = "author", required = false) String author,
             @RequestParam (value = "date", required = false)
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
-        System.out.println("Ищем посты пользователя с именем " + author +
-                "и опубликованные " + date);
+        return postService.searchPostsByAuthorAndDate(author, date);
 
     }
 

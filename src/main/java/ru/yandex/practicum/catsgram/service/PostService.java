@@ -7,8 +7,11 @@ import ru.yandex.practicum.catsgram.exception.UserNotFoundException;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -19,6 +22,10 @@ public class PostService {
     @Autowired
     public PostService(UserService userService) {
         this.userService = userService;
+    }
+
+    private static Integer getNextId() {
+        return globalId++;
     }
 
     public Post findPostById(Integer id) {
@@ -40,10 +47,6 @@ public class PostService {
         return post;
     }
 
-    private static Integer getNextId() {
-        return globalId++;
-    }
-
     public List<Post> findAll(String sort, Integer from, Integer size) {
         return posts.stream().sorted((p1, p2) -> {
                     int comp = p1.getCreationDate().compareTo(p2.getCreationDate());
@@ -53,5 +56,14 @@ public class PostService {
                     return comp;
                 })
                 .skip(from).limit(size).toList();
+    }
+
+    public List<Post> searchPostsByAuthorAndDate(String author, LocalDate date) {
+        return posts.stream()
+                .filter(x ->
+                        x.getAuthor().equals(author) &&
+                                LocalDate.ofInstant(x.getCreationDate(), ZoneId.systemDefault()).equals(date))
+                .toList();
+
     }
 }
