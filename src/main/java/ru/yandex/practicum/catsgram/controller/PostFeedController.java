@@ -1,14 +1,11 @@
 package ru.yandex.practicum.catsgram.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.yandex.practicum.catsgram.exception.IncorrectParameterException;
 import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.service.PostService;
 
@@ -30,16 +27,19 @@ public class PostFeedController {
 
     @PostMapping
     List<Post> getFriendsFeed(@RequestBody FeedParams feedParams) {
-        if (!SORTS.contains(feedParams.getSort()) || feedParams.getFriends().isEmpty()) {
-            throw new IllegalArgumentException();
+        if (feedParams.friends().isEmpty()) {
+            throw new IncorrectParameterException("emails");
         }
-        if (feedParams.getSize() == null || feedParams.getSize() <= 0) {
-            throw new IllegalArgumentException();
+        if (!SORTS.contains(feedParams.sort())) {
+            throw new IncorrectParameterException("sort");
+        }
+        if (feedParams.size() == null || feedParams.size() <= 0) {
+            throw new IncorrectParameterException("size");
         }
 
         List<Post> result = new ArrayList<>();
-        for (String friendEmail : feedParams.getFriends()) {
-            result.addAll(postService.findAllByUserEmail(friendEmail, feedParams.getSize(), feedParams.getSort()));
+        for (String friendEmail : feedParams.friends()) {
+            result.addAll(postService.findAllByUserEmail(friendEmail, feedParams.size(), feedParams.sort()));
         }
         return result;
     }
@@ -70,17 +70,7 @@ public class PostFeedController {
 //
 //    }
 
-    @Data
-    private static class FeedParams {
-        private final String sort;
-        private final Integer size;
-        private final List<String> friends;
-
-
-
-
+    private record FeedParams(String sort, Integer size, List<String> friends) {
     }
-
-
 
 }
