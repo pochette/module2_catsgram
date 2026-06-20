@@ -11,11 +11,10 @@ import java.util.Optional;
 public class SimpleController {
 
 
-    private final HackCatService hackCatService;
+    private  HackCatService hackCatService;
 
-    public SimpleController(HackCatService hackCatService){
+    public SimpleController(){
 
-        this.hackCatService = hackCatService;
     }
 
     @GetMapping("/do-hack")

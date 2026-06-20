@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public class HackCatService {
     public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/cats";
     public static final String JDBC_DRIVER = "org.postgresql.Driver";
