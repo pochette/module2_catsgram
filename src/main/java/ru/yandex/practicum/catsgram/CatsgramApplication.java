@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import ru.yandex.practicum.catsgram.controller.SimpleController;
 import ru.yandex.practicum.catsgram.service.HackCatService;
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 public class CatsgramApplication {
 
 	public static void main(String[] args) {

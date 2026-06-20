@@ -26,7 +26,7 @@ public class PostService {
     }
 
     public Post create(Post post) {
-        User postAuthor = userService.findUserByEmail(post.getAuthor());
+        User postAuthor = userService.findUserByLogin(post.getAuthor()).get();
         if (postAuthor == null) {
             throw new UserNotFoundException(String.format(
                     "Пользователь %s не найден",

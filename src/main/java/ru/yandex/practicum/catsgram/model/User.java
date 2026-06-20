@@ -1,27 +1,26 @@
 package ru.yandex.practicum.catsgram.model;
 
-import jakarta.validation.constraints.Email;
-import lombok.Data;
-import java.time.LocalDate;
+import lombok.*;
+
 import java.util.Objects;
 
 @Data
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
+
 public class User {
-    @Email
-    private String email;
+    private String id;
+
+    private String username;
+
     private String nickname;
-    private LocalDate birthdate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return email.equals(user.email);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(email);
-    }
+
+    //    @Email
+//    private String email;
+//    private LocalDate birthdate;
+
+
 }
