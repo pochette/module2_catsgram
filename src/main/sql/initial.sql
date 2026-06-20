@@ -1,9 +1,9 @@
-create
-user kitty superuser; -- создать пользователя для проекта
-alter
-user kitty password 'purrrrrr'; -- задать пароль пользователя
-create
-database cats with owner kitty; -- создать базу данных проекта и её владельца
+-- create
+-- user kitty superuser; -- создать пользователя для проекта
+-- alter
+-- user kitty password 'purrrrrr'; -- задать пароль пользователя
+-- create
+-- database cats with owner kitty; -- создать базу данных проекта и её владельца
 
 -- предыдущие шаги вы выполнили в визуальном клиенте. Попробуйте выполнить дальнейшие шаги в консольном клиенте после нажатия на кнопку >_
 
