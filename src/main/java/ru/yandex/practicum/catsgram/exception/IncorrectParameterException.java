@@ -4,7 +4,6 @@ public class IncorrectParameterException extends RuntimeException {
     private final String parameter;
 
     public IncorrectParameterException(String parameter) {
-        super();
         this.parameter = parameter;
     }
 
