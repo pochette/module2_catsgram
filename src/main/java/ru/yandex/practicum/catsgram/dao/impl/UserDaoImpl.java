@@ -1,10 +1,11 @@
-package ru.yandex.practicum.catsgram.dao;
+package ru.yandex.practicum.catsgram.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.catsgram.dao.UserDao;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.util.Optional;

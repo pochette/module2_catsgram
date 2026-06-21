@@ -1,12 +1,10 @@
 package ru.yandex.practicum.catsgram.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.exception.IncorrectParameterException;
 import ru.yandex.practicum.catsgram.model.FeedParams;
 import ru.yandex.practicum.catsgram.model.Post;
+import ru.yandex.practicum.catsgram.service.FeedService;
 import ru.yandex.practicum.catsgram.service.PostService;
 
 import java.util.ArrayList;
@@ -17,27 +15,35 @@ import java.util.stream.Collectors;
 import static ru.yandex.practicum.catsgram.Constants.SORTS;
 
 @RestController()
-@RequestMapping("/feed/friends")
+@RequestMapping("/feed")
 public class PostFeedController {
 
-    private final PostService postService;
+    private final FeedService feedService;
 
-    public PostFeedController(PostService postService) {
-        this.postService = postService;
+    public PostFeedController(FeedService feedService) {
+        this.feedService = feedService;
+
     }
 
-    public Collection<Post> findPostByUser(String authorId, Integer size, String sort) {
-        return postService.findPostsByUser(authorId)
-                .stream()
-                .sorted((p0, p1) -> {
-                    int comp = p0.getCreationDate().compareTo(p1.getCreationDate());
-                    if(sort.equals("desc")) {
-                        comp = -1 * comp;
-                    }
-                    return comp;
-                })
-                .limit(size)
-                .collect(Collectors.toList());
+
+    @GetMapping
+    List<Post> getFriendsFeed(@RequestParam ("userId") String userId, @RequestParam(defaultValue = "10") int max) {
+        return feedService.getFeedFor(userId, max);
     }
+
+//
+//    public Collection<Post> findPostByUser(String authorId, Integer size, String sort) {
+//        return feedService.findPostsByUser(authorId)
+//                .stream()
+//                .sorted((p0, p1) -> {
+//                    int comp = p0.getCreationDate().compareTo(p1.getCreationDate());
+//                    if(sort.equals("desc")) {
+//                        comp = -1 * comp;
+//                    }
+//                    return comp;
+//                })
+//                .limit(size)
+//                .collect(Collectors.toList());
+//    }
 
 }
