@@ -31,6 +31,12 @@ public class PostFeedController {
         return feedService.getFeedFor(userId, max);
     }
 
+    @GetMapping("/json")
+    List<Post> getFriendsFeedJson(@RequestParam ("userId") String userId, @RequestParam(defaultValue = "10") int max) {
+        return feedService.getFeedForJson(userId, max);
+    }
+
+
 //
 //    public Collection<Post> findPostByUser(String authorId, Integer size, String sort) {
 //        return feedService.findPostsByUser(authorId)

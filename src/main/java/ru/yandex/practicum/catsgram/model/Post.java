@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,7 +16,7 @@ public class Post {
 
     private Integer id;
     private final User author; // автор
-    private final LocalDate creationDate; // дата создания
+    private final LocalDateTime creationDate; // дата создания
     private String description; // описание
     private String photoUrl; // url-адрес фотографии
 }

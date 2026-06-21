@@ -14,10 +14,13 @@ public class FeedService {
     public FeedService(FollowDao followDao) {
         this.followDao = followDao;
 
-
     }
 
     public List<Post> getFeedFor(String userId, int max) {
-        followDao.
+        return followDao.getFeedFor(userId, max);
+    }
+
+    public List<Post> getFeedForJson(String userId, int max) {
+        return followDao.getFeedForJson(userId, max);
     }
 }

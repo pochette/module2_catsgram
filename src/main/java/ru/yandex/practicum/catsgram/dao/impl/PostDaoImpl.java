@@ -10,6 +10,7 @@ import ru.yandex.practicum.catsgram.service.UserService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Component
@@ -35,7 +36,7 @@ public class PostDaoImpl implements PostDao {
 
     private Post makePost(User user, ResultSet rs) throws SQLException {
         Integer id = rs.getInt("id");
-        LocalDate creationDate = rs.getDate("creation_date").toLocalDate();
+        LocalDateTime creationDate = rs.getTimestamp("creation_date").toLocalDateTime();
         String description = rs.getString("description");
         String photoUrl = rs.getString("photo_url");
 
